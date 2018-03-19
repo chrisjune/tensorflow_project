@@ -13,6 +13,7 @@ W1 = tf.Variable(tf.random_normal([784,256],stddev=0.01))
 L1 = tf.nn.relu(tf.matmul(X,W1))
 L1 = tf.nn.dropout(L1,keep_prob)
 
+
 W2 = tf.Variable(tf.random_normal([256,256],stddev=0.01))
 L2 = tf.nn.relu(tf.matmul(L1,W2))
 L2 = tf.nn.dropout(L2, keep_prob)
