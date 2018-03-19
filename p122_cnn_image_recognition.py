@@ -80,14 +80,14 @@ print("최적화 완료")
 #Result
 is_correct = tf.equal(tf.argmax(model,1),tf.argmax(Y,1))
 accuracy = tf.reduce_mean(tf.cast(is_correct,tf.float32))
-print("정확도:",sess.run(accuracy, feed_dict={X:mnist.test.images.reshape(-1,28,28,1), Y:mnist.test.lables, keep_prob:1}))
+print("정확도:",sess.run(accuracy, feed_dict={X:mnist.test.images.reshape(-1,28,28,1), Y:mnist.test.labels, keep_prob:1}))
 
 #Plotting of result
-labels = sess.run(model,feed_dict={X:mnist.test.images, Y:mnist.test.labels, keep_prob:1})
+labels = sess.run(model,feed_dict={X:mnist.test.images.reshape(-1,28,28,1), Y:mnist.test.labels, keep_prob:1})
 fig = plt.figure()
 
 for i in range(10):
-    subplot = fig.add_subplot(5,10,i+1)
+    subplot = fig.add_subplot(2,5,i+1)
     subplot.set_xticks([])
     subplot.set_yticks([])
     subplot.set_title('%d' % np.argmax(labels[i]))
