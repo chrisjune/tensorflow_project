@@ -29,7 +29,7 @@ L1 = tf.layers.max_pooling2d(L1, [2,2], [2,2])
 L2 = tf.layers.conv2d(L1,64,[3,3])
 L2 = tf.layers.max_pooling2d(L2, [2,2], [2,2])
 
-#Final CNN Layer
+#3rd CNN Layer
 #Convolution Layer
 # W3 = tf.Variable(tf.random_normal([7*7*64, 256],stddev=0.01))
 # L3 = tf.reshape(L2, [-1, 7*7*64]) #L2 pooling data -> 1-D data
