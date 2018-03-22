@@ -11,16 +11,21 @@ batch_size = 100
 n_hidden=256
 n_input = 28*28
 
+#Encoder
 X = tf.placeholder(tf.float32, [None,n_input])
 W_encoder = tf.Variable(tf.random_normal([n_input,n_hidden]))
 b_encoder = tf.Variable(tf.random_normal([n_hidden]))
 encoder = tf.nn.sigmoid(tf.add(tf.matmul(X,W_encoder),b_encoder))
+#encoder = tf.nn.tanh(tf.add(tf.matmul(X,W_encoder),b_encoder))
+# encoder = tf.nn.relu(tf.add(tf.matmul(X,W_encoder),b_encoder))
 #입력값보다 hidden값이 적기때문에 압축과 노이즈캔슬링의 효과가 나타남
 
+#Decoder
 W_decode = tf.Variable(tf.random_normal([n_hidden,n_input]))
 b_decode = tf.Variable(tf.random_normal([n_input]))
 decoder = tf.nn.sigmoid(tf.add(tf.matmul(encoder,W_decode),b_decode))
-
+#decoder = tf.nn.tanh(tf.add(tf.matmul(encoder,W_decode),b_decode))
+# decoder = tf.nn.relu(tf.add(tf.matmul(encoder,W_decode),b_decode))
 cost = tf.reduce_mean(tf.pow(X - decoder,2))
 optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
 
