@@ -52,3 +52,40 @@ D_real = discriminator(X)
 loss_D = tf.reduce_mean(tf.log(D_real) + tf.log(1 - D_gene))
 loss_G = tf.reduce_mean(tf.log(D_gene))
 
+#Variable list
+D_var_list = [ D_W1, D_b1, D_W2, D_b2 ]
+G_var_list = [ G_W1, G_b1, G_W2, G_b2 ]
+
+train_D = tf.train.AdamOptimizer(learning_rate).minimize(-loss_D,var_list=D_var_list)
+train_G = tf.train.AdamOptimizer(learning_rate).minimize(-loss_G,var_list=G_var_list)
+
+sess = tf.Session()
+sessrun(tf.global_variables_initializer())
+total_batch = int (mnist.train.num_examples / batch_size )
+loss_val_D, loss_val_G = 0,0
+
+for epoch in range(total_epoch):
+    for i in range(total_batch):
+        batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+        noise = get_noise(batch_size, n_noise)
+
+        -, loss_val_D = sess.run([train_D, loss_D],feed_dict={X:batch_xs, Z:noise})
+        _, loss_val_G = sess.run([train_G, loss_G],feed_dict={Z: noise})
+    
+    print('Epoch:', '%04d' % epoch,
+        'D_loss: {:.4}'.format(loss_val_D),
+        ,'G_loss: {:.4}'.format(loss_val_G))
+    if epoch == 0 or (epoch+1)%10 == 0 :
+        sample_size = 10
+        noise = get_noise(sample_size,n_noise)
+        samples = sess.run(G, feed_dict = {Z:noise}) 
+    
+    fig, ax = plt.subplots(1, sample_size, figsize = (sample_size, 1))
+    for i in range(sample_size):
+        ax[i].sets_axis_off()
+        ax[i].imshow(np.reshape(samples[i], (28,28)))
+    
+    plt.save('samples/{}.png'.format(str(epoch).zfill(3)),
+        bbox_inches ='tight')
+    plt.clost(fig)
+print("최적화완료")
