@@ -1,0 +1,9 @@
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px dotted rgb(110, 48, 48);
+}
+h1{
+    color: red;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User list</title>
+</head>
+<body>
+    <h1>Here are your users for second_app:</h1>
+    {% if users %}
+    <ol>
+        {% for user in users %}
+        <li>user Info</li>
+        <ul>
+            <li>First Name: {{user.first_name}}</li>
+            <li>Last Name: {{user.last_name}} </li>
+            <li>Email: {{user.email}}</li>
+        </ul>
+        {% endfor %}
+    </ol>
+    {% else %}
+    <p>Opps there is no list</p>
+    {% endif %}
+</body>
+</html>

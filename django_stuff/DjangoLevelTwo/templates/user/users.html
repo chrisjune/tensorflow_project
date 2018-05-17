@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User</title>
+</head>
+<body>
+<h1>Here are your users:</h1>
+{% if user_dict %}
+{% for entry in user_dict %}
+<ol>
+    <li>
+        User info
+        <ul>
+            <li>First Name: {{ entry.first_name }}</li>     
+            <li>Last Name: {{ entry.last_name }}</li>     
+            <li>Email: {{ entry.email }}</li>     
+        </ul>
+    </li>
+</ol>
+{% endfor %}
+{% else %}
+<p>There is no user infomation</p>
+{% endif %}
+</body>
+</html>
