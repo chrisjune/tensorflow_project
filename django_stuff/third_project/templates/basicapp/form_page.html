@@ -14,6 +14,7 @@
         <form method="post">
             {{ form.as_p }}
             {% csrf_token %}
+            <!--Cross Site Request Forgery-->
             <input type="submit" class="btn btn-primary" value="Submit">
         </form>
     </div>
